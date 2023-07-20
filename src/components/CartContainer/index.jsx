@@ -22,10 +22,10 @@ function CartContainer({ isOpen, setIsOpen, cartProducts, removeProductFromCart,
     <aside className={`w-full max-w-lg h-auto flex flex-col items-center pb-8 pt-6 px-6 bg-white shadow overflow-y-hidden z-10 rounded-b-lg cart-container ${isOpen ? "fixed": "hidden"} right-0 top-12`}>
       <div className="w-full min-w-max max-w-md flex items-center mb-5 text-start cart__title">
         <Icon type="leftArrow" size={4} onClick={() => setIsOpen(false)} pointer />
-        <h1 className="text-xl ml-4">My order</h1>
+        <h1 className="text-xl ml-4">My shopping cart</h1>
       </div>
       <div className="w-full min-w-min max-w-md h-full max-h-40 sm:md:max-h-60 md:max-h-80 overflow-y-auto orders-container">
-        {cartProducts.map((product, idx) => (
+        {cartProducts.length > 0 ? cartProducts.map((product, idx) => (
           <CardPayment
             key={idx}
             title={product.title}
@@ -33,7 +33,7 @@ function CartContainer({ isOpen, setIsOpen, cartProducts, removeProductFromCart,
             price={product.price}
             onRemoveProduct={() => removeProductFromCart(product.id)}
           />
-        ))}
+        )) : (<div className="text-center mt-4 text-base font-medium">Add your first product!</div>)}
       </div>
       <div className="w-full min-w-max max-w-md orders-checkout">
         <div className="grid grid-cols-2 gap-4 items-center bg-white mt-5 rounded-md px-4 orders-resume" id="orders-resume">

@@ -15,7 +15,7 @@ function MyOrders({ myOrders, updateOrderView }) {
         </Link>
         <h1 className="font-semibold text-lg md:text-xl text-start ml-4">My orders</h1>
       </div>
-      {myOrders.map((order, idx) => (
+      {myOrders.lenght > 0 ? myOrders.map((order, idx) => (
         <Link
           key={idx}
           to="/my-order-view"
@@ -31,7 +31,7 @@ function MyOrders({ myOrders, updateOrderView }) {
             <Icon type="rightArrow" />
           </div>
         </Link>
-      ))}
+      )) : (<div className="text-center mt-4 text-base font-medium">You don&apos;t have any order yet!</div>)}
     </section>
   )
 }

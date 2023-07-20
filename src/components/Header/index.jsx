@@ -74,9 +74,8 @@ function Header( { countCartProducts, toggleCart }) {
 
   return (
     <header>
-      <nav className={`${isMenuMobileOpen ? "block" : "hidden"} lg:hidden w-full my-0 mx-auto bg-white absolute z-10 shadow-md`}>
-        <Icon type="close" size={8} />
-        <ul className="my-10 text-base font-bold">
+      <nav className={`${isMenuMobileOpen ? "fixed" : "hidden"} lg:hidden w-full h-full my-0 mx-auto bg-white z-10 shadow-md overflow-y-auto`}>
+        <ul className="mt-16 mb-10 text-base font-bold">
           <li className="pl-8 py-5">CATEGORIES</li>
           <li className="py-0 px-0">
             <NavLink className="pl-8 inline-block w-full py-6 px-0 hover:bg-gray-100" onClick={() => closeAllMenus()} to="/">All</NavLink>

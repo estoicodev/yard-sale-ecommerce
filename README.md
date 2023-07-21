@@ -39,3 +39,5 @@ An example of an E-commerce
 [ ] Login Authentication
 
 Author: estoicodev <estoicodev@gmail.com>
+
+[Demo](https://yard-sale-ecommerce.netlify.app/)

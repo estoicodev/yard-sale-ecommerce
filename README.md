@@ -30,12 +30,12 @@ An example of an E-commerce
 
 ## Possible features to add
 
-[] Search products by name
+[ ] Search products by name
 
-[] Handle payment order
+[ ] Handle payment order
 
-[] Handle password recovery
+[ ] Handle password recovery
 
-[] Login Authentication
+[ ] Login Authentication
 
 Author: estoicodev <estoicodev@gmail.com>

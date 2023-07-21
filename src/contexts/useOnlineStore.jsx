@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 const OnlineStoreContext = createContext()
 
@@ -10,6 +10,7 @@ const OnlineStoreProvider = ( { children }) => {
     password: "123456",
   }); // TODO: Add user info here [name, email, password]
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]); // TODO: Add filtered products here [products, date, total
   const [cartProducts, setCartProducts] = useState([]); // TODO: Add cart products here
   const [countCartProducts, setCountCartProducts] = useState(0);
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
@@ -18,6 +19,17 @@ const OnlineStoreProvider = ( { children }) => {
   const [myOrders, setMyOrders] = useState([]); // TODO: Add my orders here [products, date, total]
   const [currentOrder, setCurrentOrder] = useState({}); // TODO: Add current order here [products, date, total]
   const [orderView, setOrderView] = useState({}); // TODO: Add order view here [products, date, total]
+
+  useEffect(() => {
+    setProducts([]);
+    fetch('https://fakestoreapi.com/products')
+      .then(res=>res.json())
+      .then(json=> {
+        setProducts(json);
+        setFilteredProducts(json);
+      })
+      .catch(err=>console.error(err));
+  }, []);
 
   const updateCurrentOrder = () => {
     if (cartProducts.length === 0) return;
@@ -126,6 +138,8 @@ const OnlineStoreProvider = ( { children }) => {
         showProductDetail,
         updateUserInfo,
         addOrder,
+        filteredProducts,
+        setFilteredProducts,
       }
     }>
       {children}

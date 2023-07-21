@@ -2,8 +2,10 @@ import PropTypes from "prop-types";
 import Icon from "../Icon";
 import { formatNumberWithComma } from "../../utils/format";
 import { useEffect, useState, useRef } from "react";
+import { useOnlineStore } from "../../contexts";
 
 function Card({ imageSrc, price, title, onAddToCart, onClickImage}) {
+  const { setIsCartOpen } = useOnlineStore();
   const [titleWithLimit, setTitleWithLimit] = useState("");
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [divSize, setDivSize] = useState({ width: 0, height: 0 });
@@ -54,6 +56,8 @@ function Card({ imageSrc, price, title, onAddToCart, onClickImage}) {
     }
   }, [imageSize, divSize]);
 
+
+
   return (
     <article className="max-w-sm">
       <div className="flex items-center w-full h-52 overflow-hidden mb-2 cursor-pointer" ref={firstDivRef}>
@@ -74,7 +78,10 @@ function Card({ imageSrc, price, title, onAddToCart, onClickImage}) {
           <span className="text-gray-600">{`Div: ${divSize.width}px x ${divSize.height}px`}</span>
           <span className="text-gray-600">{`Scale (${imageSize.height} < ${divSize.height})`}</span> */}
         </div>
-        <Icon type="addToCart" color="#ACD9B2" size={8} onClick={onAddToCart} pointer/>
+        <Icon type="addToCart" color="#ACD9B2" size={8} onClick={() => {
+          onAddToCart();
+          setIsCartOpen(true);
+        }} pointer/>
       </div>
     </article>
   )

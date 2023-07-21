@@ -1,23 +1,16 @@
 import CardsList from "../../components/CardsList"
 import Card from "../../components/Card"
-import { useEffect } from "react";
+import Searcher from "../../components/Searcher";
 import { useOnlineStore } from "../../contexts";
 
 function Electronics() {
-  const { products, setProducts, addProductToCart, showProductDetail } = useOnlineStore();
-
-  useEffect(() => {
-    setProducts([]);
-    fetch('https://fakestoreapi.com/products/category/electronics')
-      .then(res=>res.json())
-      .then(json=>setProducts(json))
-      .catch(err=>console.error(err));
-  }, [setProducts]);
+  const { filteredProducts, addProductToCart, showProductDetail } = useOnlineStore();
 
   return (
     <>
+      <Searcher />
       <CardsList>
-        {products.map((product) => (
+        {filteredProducts.filter((product) => product.category === "electronics").map((product) => (
           <Card
             key={product.id}
             imageSrc={product.image}

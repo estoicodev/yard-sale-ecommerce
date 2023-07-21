@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { OnlineStoreProvider } from "./contexts/useOnlineShop"
+import { OnlineStoreProvider } from "./contexts/useOnlineStore"
 import Layout from "./components/Layout"
 import All from "./pages/All"
 import Electronics from "./pages/Electronics"
@@ -29,11 +29,9 @@ function App() {
             <Route path="womens-clothing" element={<WomensClothing />} />
             <Route path="my-account" element={<MyAccount />} />
             <Route path="edit-account" element={<EditAccount />} />
-            <Route path="my-order" element={<MyOrder />}
-            />
+            <Route path="my-order" element={<MyOrder />} />
             <Route path="my-orders" element={<MyOrders />} />
             <Route path="my-order-view" element={<MyOrderView />} />
-
           </Route>
           <Route path='login' element={<Login />} />
           <Route path='password-recovery' element={<PasswordRecovery />} />

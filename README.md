@@ -22,6 +22,8 @@ An example of an E-commerce
 
 [X] Responsive Menu and Main from each page
 
+[X] Search products by name
+
 ## Used technologies
 
 - React
@@ -29,8 +31,6 @@ An example of an E-commerce
 - Tailwind CSS
 
 ## Possible features to add
-
-[ ] Search products by name
 
 [ ] Handle payment order
 

@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom"
-import { useContext } from "react"
-import { OnlineStoreContext } from "../../contexts/useOnlineShop"
+import { useOnlineStore } from "../../contexts"
 function MyAccount() {
-  const { userInfo } = useContext(OnlineStoreContext);
+  const { userInfo } = useOnlineStore();
 
   return (
     <section className="w-full max-w-sm h-full mx-auto flex flex-col py-10 relative login">

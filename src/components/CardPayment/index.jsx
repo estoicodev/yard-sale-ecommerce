@@ -17,7 +17,6 @@ function CardPayment({ title, imageSrc, price, onRemoveProduct, permanent }) {
     } else {
       setLimitTitle(38);
     }
-    console.log(window.innerWidth);
   }
 
   useEffect(() => {
@@ -27,7 +26,6 @@ function CardPayment({ title, imageSrc, price, onRemoveProduct, permanent }) {
   useEffect(() => {
     if (title.length > limitTitle) {
       setTitleWithLimit(title.slice(0, limitTitle) + "...");
-      console.log(limitTitle);
     } else {
       setTitleWithLimit(title);
     }

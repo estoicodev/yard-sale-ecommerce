@@ -25,7 +25,7 @@ const Icon = ({ color, type, size, rounded, shadow, onClick, pointer, sizeType }
     <span
       className={`${size ? `w-${size} h-${size}` : ""} flex justify-center items-center ${rounded ? "rounded-full" : ""} ${shadow ? "shadow-md" : ""} ${pointer ? "cursor-pointer" : ""}`} 
       onClick={() => {
-        onClick();
+        if (onClick) onClick();
         console.log(`Click a ${type} icon`);
       }}
     >

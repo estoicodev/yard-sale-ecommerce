@@ -1,9 +1,11 @@
 import CardsList from "../../components/CardsList"
 import Card from "../../components/Card"
-import PropTypes from "prop-types"
 import { useEffect } from "react";
+import { useOnlineStore } from "../../contexts";
 
-function All( { products, setProducts, onAddToCart, showProductDetail }) {
+function All() {
+  const { products, setProducts, addProductToCart, showProductDetail } = useOnlineStore();
+
   useEffect(() => {
     setProducts([]);
     fetch('https://fakestoreapi.com/products')
@@ -21,20 +23,13 @@ function All( { products, setProducts, onAddToCart, showProductDetail }) {
             imageSrc={product.image}
             price={product.price}
             title={product.title}
-            onAddToCart={() => onAddToCart(product.id)}
+            onAddToCart={() => addProductToCart(product.id)}
             onClickImage={() => showProductDetail(product.id)}
           />
         ))}
       </CardsList>
     </>
   )
-}
-
-All.propTypes = {
-  products: PropTypes.array.isRequired,
-  setProducts: PropTypes.func.isRequired,
-  onAddToCart: PropTypes.func.isRequired,
-  showProductDetail: PropTypes.func.isRequired,
 }
 
 export default All

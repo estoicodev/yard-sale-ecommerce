@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import Icon from '../../components/Icon'
-import PropTypes from 'prop-types'
 import { formatNumberWithComma } from '../../utils/format'
+import { useOnlineStore } from '../../contexts'
 
-function MyOrders({ myOrders, updateOrderView }) {
+function MyOrders() {
+  const { myOrders, updateOrderView } = useOnlineStore();
 
   console.log("My orders: ",myOrders);
 
@@ -11,11 +12,11 @@ function MyOrders({ myOrders, updateOrderView }) {
     <section className="w-full max-w-md mx-auto pt-10 main-container">
       <div className="flex px-1 mb-10">
         <Link to="/" className="flex items-center">
-          <Icon type="leftArrow" />
+          <Icon type="leftArrow" onClick={() => {}}/>
         </Link>
         <h1 className="font-semibold text-lg md:text-xl text-start ml-4">My orders</h1>
       </div>
-      {myOrders.lenght > 0 ? myOrders.map((order, idx) => (
+      {myOrders.length > 0 ? myOrders.map((order, idx) => (
         <Link
           key={idx}
           to="/my-order-view"
@@ -34,11 +35,6 @@ function MyOrders({ myOrders, updateOrderView }) {
       )) : (<div className="text-center mt-4 text-base font-medium">You don&apos;t have any order yet!</div>)}
     </section>
   )
-}
-
-MyOrders.propTypes = {
-  myOrders: PropTypes.array,
-  updateOrderView: PropTypes.func,
 }
 
 export default MyOrders

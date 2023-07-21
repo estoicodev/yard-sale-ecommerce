@@ -1,15 +1,12 @@
-import PropTypes from "prop-types"
-import CardPayment from "../../components/CardPayment";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Icon from "../../components/Icon";
+import CardPayment from "../../components/CardPayment";
+import { useOnlineStore } from "../../contexts";
 import { formatNumberWithComma } from "../../utils/format";
 
-function MyOrder({
-  cartProducts,
-  countCartProducts,
-  addOrder,
-}) {
+function MyOrder() {
+  const { cartProducts, countCartProducts, addOrder } = useOnlineStore();
   const [totalCartPayment, setTotalCartPayment] = useState(0);
   const [date] = useState(new Date());
 
@@ -67,12 +64,6 @@ function MyOrder({
 
     </div>
   )
-}
-
-MyOrder.propTypes = {
-  cartProducts: PropTypes.array.isRequired,
-  countCartProducts: PropTypes.number.isRequired,
-  addOrder: PropTypes.func.isRequired,
 }
 
 export default MyOrder

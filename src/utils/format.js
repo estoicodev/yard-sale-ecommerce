@@ -1,6 +1,6 @@
 export function formatNumberWithComma(number) {
   if (!number) {
-    console.error("formatNumberWithComma: number is not defined");
+    // console.error("formatNumberWithComma: number is not defined");
     return "";
   }
   

@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom"
 import { useState } from "react"
-import PropTypes from "prop-types"
 import Icon from "../Icon";
+import { useOnlineStore } from "../../contexts";
 
-function Header( { countCartProducts, toggleCart }) {
+function Header() {
+  const { countCartProducts, toggleCart } = useOnlineStore(); 
+
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isMenuMobileOpen, setIsMenuMobileOpen] = useState(false);
   const [isAllActive, setIsAllActive] = useState(true);
@@ -114,9 +116,9 @@ function Header( { countCartProducts, toggleCart }) {
           </li>
           <div className="flex justify-center items-center">
             <li>
-              <a href=".">
+              <NavLink to="/">
                 <Icon type="logo" color="#ACD9B2" sizeType="sm"/>
-              </a>
+              </NavLink>
             </li>
             <ul className="hidden lg:flex gap-4 ml-8 xl:ml-24 text-base" id="categories-list">
               <li className="inline-flex"><NavLink onClick={onlyAllActive} className={`${isAllActive ? "text-[#acd9b2] border-[#acd9b2]" : "text-[#c7c7c7] border-transparent"} ${headerDesktopNavLinkStyle}`} to="/">All</NavLink></li>
@@ -132,7 +134,7 @@ function Header( { countCartProducts, toggleCart }) {
               <Icon type="downArrow" size={3}/>
             </li>
             <button className="h-full px-5 relative cursor-pointer" onClick={() => toggleCart()}>
-              <Icon type="shoppingCart" onClick={() => {}}/>
+              <Icon type="shoppingCart" />
               <div className="w-4 h-4 text-sm font-bold bg-[#ACD9B2] rounded-full flex justify-center items-center absolute top-2 right-3">{countCartProducts}</div>
             </button>
           </div>
@@ -153,11 +155,6 @@ function Header( { countCartProducts, toggleCart }) {
       </nav>
     </header>
   )
-}
-
-Header.propTypes = {
-  countCartProducts: PropTypes.number.isRequired,
-  toggleCart: PropTypes.func.isRequired,
 }
 
 export default Header

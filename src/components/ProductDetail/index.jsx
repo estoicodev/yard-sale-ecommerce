@@ -3,14 +3,28 @@ import PropTypes from "prop-types";
 import Icon from "../Icon";
 import { formatNumberWithComma } from "../../utils/format";
 import { useState } from "react";
+import { useOnlineStore } from "../../contexts";
 
-function ProductDetail({ isOpen, setIsOpen, product }) {
+function ProductDetail() {
+  const {
+    isProductDetailOpen: isOpen,
+    setIsProductDetailOpen: setIsOpen,
+    productDetail: product,
+    addProductToCart,
+  } = useOnlineStore();
+
   const [isActiveImageOne, setIsActiveImageOne] = useState(true);
   const [isActiveImageTwo, setIsActiveImageTwo] = useState(false);
   const [isActiveImageThree, setIsActiveImageThree] = useState(false);
 
+  const handleAddToCart = () => {
+    const productId = product.id;
+    addProductToCart(productId);
+    setIsOpen(false);
+  }
+
   return (
-    <aside className={`w-full max-w-lg h-[94%] max-h-max bg-white shadow rounded-bl-lg z-10 overflow-y-auto product-detail ${isOpen ? "fixed": "hidden"} right-0 top-12`}>
+    <aside className={`w-full max-w-lg h-[93%] max-h-max py-4 md:py-2 bg-white shadow rounded-bl-lg z-10 overflow-y-auto product-detail ${isOpen ? "fixed": "hidden"} right-0 top-12`}>
       <div className="grid place-items-center absolute top-5 left-4 z-20 rounded-full bg-slate-50 p-3 cursor-pointer icon-close-container">
         <Icon type="close" size={8} onClick={() => setIsOpen(false)} rounded/>
       </div>
@@ -26,7 +40,9 @@ function ProductDetail({ isOpen, setIsOpen, product }) {
         <span className="mb-1 text-[#232830] font-bold product-info__price">$ {formatNumberWithComma(product.price)}</span>
         <span className="mb-5 text-gray-500 font-medium product-info__name">{product.title}</span>
         <p className="text-[#8c8c8c] text-base product-info__description">{product.description}</p>
-        <button className="flex justify-center items-center my-5 bg-[#acd9b2] text-white font-bold w-full h-12 border-none rounded-xl text-lg decoration-0 button button__primary" id="button-add-to-cart">
+        <button className="flex justify-center items-center my-5 bg-[#acd9b2] text-white font-bold w-full h-12 border-none rounded-xl text-lg decoration-0 button button__primary"
+        onClick={() => {handleAddToCart()}}
+        >
           <Icon type="addToCart" fill="white"/>
           Add to cart
         </button>

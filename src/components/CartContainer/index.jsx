@@ -4,8 +4,19 @@ import CardPayment from "../CardPayment";
 import { useState, useEffect } from "react";
 import { formatNumberWithComma } from "../../utils/format";
 import { Link } from "react-router-dom";
+import { useOnlineStore } from "../../contexts";
 
-function CartContainer({ isOpen, setIsOpen, cartProducts, removeProductFromCart, updateCurrentOrder }) {
+function CartContainer() {
+  const {
+    isCartOpen: isOpen,
+    setIsCartOpen: setIsOpen,
+    cartProducts,
+    removeProductFromCart,
+    updateCurrentOrder,
+    setCartProducts,
+    setCountCartProducts,
+  } = useOnlineStore();
+
   const [totalCartPayment, setTotalCartPayment] = useState(0);
 
   useEffect(() => {
@@ -18,12 +29,18 @@ function CartContainer({ isOpen, setIsOpen, cartProducts, removeProductFromCart,
     setIsOpen(false);
   }
 
+  const clearAllCartProducts = () => {
+    setCartProducts([]);
+    setCountCartProducts(0);
+  }
+
   return (
-    <aside className={`w-full max-w-lg h-auto flex flex-col items-center pb-8 pt-6 px-6 bg-white shadow overflow-y-hidden z-10 rounded-b-lg cart-container ${isOpen ? "fixed": "hidden"} right-0 top-12`}>
+    <aside className={`w-full max-w-lg h-auto flex flex-col items-center pb-8 pt-8 px-6 bg-white shadow overflow-y-hidden z-10 rounded-b-lg cart-container ${isOpen ? "fixed": "hidden"} right-0 top-12`}>
       <div className="w-full min-w-max max-w-md flex items-center mb-5 text-start cart__title">
         <Icon type="leftArrow" size={4} onClick={() => setIsOpen(false)} pointer />
         <h1 className="text-xl ml-4">My shopping cart</h1>
       </div>
+      <button className={`${cartProducts.length === 0 ? "hidden": null} ${cartProducts.length > 1 ? "mb-3": null} ml-auto pr-4 xs:pr-9 text-base font-medium text-gray-900 hover:underline `} onClick={() => clearAllCartProducts()}>Clear All</button>
       <div className="w-full min-w-min max-w-md h-full max-h-40 sm:md:max-h-60 md:max-h-80 overflow-y-auto orders-container">
         {cartProducts.length > 0 ? cartProducts.map((product, idx) => (
           <CardPayment

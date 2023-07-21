@@ -1,12 +1,11 @@
-import PropTypes from "prop-types"
-import CardPayment from "../../components/CardPayment";
 import { Link } from "react-router-dom";
 import Icon from "../../components/Icon";
+import CardPayment from "../../components/CardPayment";
 import { formatNumberWithComma } from "../../utils/format";
+import { useOnlineStore } from "../../contexts";
 
-function MyOrderView({
-  orderView,
-}) {
+function MyOrderView() {
+  const { orderView } = useOnlineStore();
 
   return (
     <section className="w-full max-w-md mx-auto pt-10 main-container">
@@ -36,10 +35,6 @@ function MyOrderView({
       </section>
   </section>
   )
-}
-
-MyOrderView.propTypes = {
-  orderView: PropTypes.object.isRequired,
 }
 
 export default MyOrderView

@@ -1,8 +1,9 @@
-import PropTypes from "prop-types"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useOnlineStore } from "../../contexts"
 
-function EditAccount({ updateUserInfo }) {
+function EditAccount() {
+  const { updateUserInfo } = useOnlineStore();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,10 +31,5 @@ function EditAccount({ updateUserInfo }) {
 
   )
 }
-
-EditAccount.propTypes = {
-  updateUserInfo: PropTypes.func.isRequired,
-}
-
 
 export default EditAccount

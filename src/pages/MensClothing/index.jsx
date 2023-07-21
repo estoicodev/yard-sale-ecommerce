@@ -1,9 +1,11 @@
 import CardsList from "../../components/CardsList"
 import Card from "../../components/Card"
-import PropTypes from "prop-types"
 import { useEffect } from "react";
+import { useOnlineStore } from "../../contexts";
 
-function MensClothing( { products, setProducts, onAddToCart, showProductDetail }) {
+function MensClothing() {
+  const { products, setProducts, addProductToCart, showProductDetail } = useOnlineStore();
+  
   useEffect(() => {
     setProducts([]);
     fetch("https://fakestoreapi.com/products/category/men's%20clothing")
@@ -21,20 +23,13 @@ function MensClothing( { products, setProducts, onAddToCart, showProductDetail }
             imageSrc={product.image}
             price={product.price}
             title={product.title}
-            onAddToCart={() => onAddToCart(product.id)}
+            onAddToCart={() => addProductToCart(product.id)}
             onClickImage={() => showProductDetail(product.id)}
           />
         ))}
       </CardsList>
     </>
   )
-}
-
-MensClothing.propTypes = {
-  products: PropTypes.array.isRequired,
-  setProducts: PropTypes.func.isRequired,
-  onAddToCart: PropTypes.func.isRequired,
-  showProductDetail: PropTypes.func.isRequired,
 }
 
 export default MensClothing

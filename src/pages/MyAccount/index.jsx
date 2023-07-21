@@ -1,7 +1,9 @@
-import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { OnlineStoreContext } from "../../contexts/useOnlineShop"
+function MyAccount() {
+  const { userInfo } = useContext(OnlineStoreContext);
 
-function MyAccount({ userInfo }) {
   return (
     <section className="w-full max-w-sm h-full mx-auto flex flex-col py-10 relative login">
       <h1 className="text-black font-bold text-lg text-start mb-10 title">My account</h1>
@@ -17,10 +19,6 @@ function MyAccount({ userInfo }) {
     </section>
 
   )
-}
-
-MyAccount.propTypes = {
-  userInfo: PropTypes.object.isRequired,
 }
 
 export default MyAccount

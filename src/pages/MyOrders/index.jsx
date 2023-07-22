@@ -12,7 +12,7 @@ function MyOrders() {
     <section className="w-full max-w-md mx-auto pt-10 main-container">
       <div className="flex px-1 mb-10">
         <Link to="/" className="flex items-center">
-          <Icon type="leftArrow" onClick={() => {}}/>
+          <Icon type="leftArrow"/>
         </Link>
         <h1 className="font-semibold text-lg md:text-xl text-start ml-4">My orders</h1>
       </div>

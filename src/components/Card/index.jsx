@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { useOnlineStore } from "../../contexts";
 
 function Card({ imageSrc, price, title, onAddToCart, onClickImage}) {
-  const { setIsCartOpen } = useOnlineStore();
+  const { setIsCartOpen, countCartProducts } = useOnlineStore();
   const [titleWithLimit, setTitleWithLimit] = useState("");
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [divSize, setDivSize] = useState({ width: 0, height: 0 });
@@ -56,7 +56,12 @@ function Card({ imageSrc, price, title, onAddToCart, onClickImage}) {
     }
   }, [imageSize, divSize]);
 
-
+  const handleAddToCart = () => {
+    onAddToCart();
+    if (countCartProducts === 0) {
+      setIsCartOpen(true);
+    }
+  }
 
   return (
     <article className="max-w-sm">
@@ -78,10 +83,7 @@ function Card({ imageSrc, price, title, onAddToCart, onClickImage}) {
           <span className="text-gray-600">{`Div: ${divSize.width}px x ${divSize.height}px`}</span>
           <span className="text-gray-600">{`Scale (${imageSize.height} < ${divSize.height})`}</span> */}
         </div>
-        <Icon type="addToCart" color="#ACD9B2" size={8} onClick={() => {
-          onAddToCart();
-          setIsCartOpen(true);
-        }} pointer/>
+        <Icon type="addToCart" color="#ACD9B2" size={8} onClick={handleAddToCart} pointer/>
       </div>
     </article>
   )

@@ -2,9 +2,14 @@ import CardsList from "../../components/CardsList"
 import Card from "../../components/Card"
 import Searcher from "../../components/Searcher";
 import { useOnlineStore } from "../../contexts";
+import { useEffect } from "react";
 
 function MensClothing() {
-  const { filteredProducts, addProductToCart, showProductDetail } = useOnlineStore();
+  const { filteredProducts, addProductToCart, showProductDetail, onlyMensClothingActive } = useOnlineStore();
+
+  useEffect(() => {
+    onlyMensClothingActive();
+  }, [onlyMensClothingActive]);
 
   return (
     <>

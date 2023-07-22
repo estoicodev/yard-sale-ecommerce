@@ -4,8 +4,10 @@ import Icon from "../../components/Icon";
 import CardPayment from "../../components/CardPayment";
 import { useOnlineStore } from "../../contexts";
 import { formatNumberWithComma } from "../../utils/format";
+import { useNavigate } from "react-router-dom";
 
 function MyOrder() {
+  const navigate = useNavigate();
   const { cartProducts, countCartProducts, addOrder } = useOnlineStore();
   const [totalCartPayment, setTotalCartPayment] = useState(0);
   const [date] = useState(new Date());
@@ -20,12 +22,16 @@ function MyOrder() {
     // }]);
   }, [cartProducts])
 
+  const goBack = () => {
+    navigate(-1);
+  }
+
   return (
     <div className="w-full max-w-md mx-auto pt-10 main-container">
       <div className="flex px-1 mb-10">
-        <Link to="/" className="flex items-center">
+        <button className="flex items-center" onClick={goBack}>
           <Icon type="leftArrow" />
-        </Link>
+        </button>
         <h1 className="font-semibold text-lg md:text-xl text-start ml-4">My order</h1>
       </div>
       <div className="w-full min-h-max flex justify-between items-center py-4 px-4 mb-8 rounded-lg text-lg font-bold bg-[#f7f7f7] text-black decoration-0 general-info">

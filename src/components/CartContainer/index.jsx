@@ -15,6 +15,8 @@ function CartContainer() {
     updateCurrentOrder,
     setCartProducts,
     setCountCartProducts,
+    closeAllMenus,
+    allNavInactive
   } = useOnlineStore();
 
   const [totalCartPayment, setTotalCartPayment] = useState(0);
@@ -26,7 +28,8 @@ function CartContainer() {
 
   const checkoutOrder = () => {
     updateCurrentOrder();
-    setIsOpen(false);
+    closeAllMenus();
+    allNavInactive();
   }
 
   const clearAllCartProducts = () => {

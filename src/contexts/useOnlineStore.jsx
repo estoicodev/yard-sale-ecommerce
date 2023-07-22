@@ -4,11 +4,6 @@ import { createContext, useEffect, useState } from 'react'
 const OnlineStoreContext = createContext()
 
 const OnlineStoreProvider = ( { children }) => {
-  const [userInfo, setUserInfo] = useState({
-    name: "Mauricio Carrasco",
-    email: "estoicodev@gmail.com",
-    password: "123456",
-  }); // TODO: Add user info here [name, email, password]
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]); // TODO: Add filtered products here [products, date, total
   const [cartProducts, setCartProducts] = useState([]); // TODO: Add cart products here
@@ -19,17 +14,25 @@ const OnlineStoreProvider = ( { children }) => {
   const [myOrders, setMyOrders] = useState([]); // TODO: Add my orders here [products, date, total]
   const [currentOrder, setCurrentOrder] = useState({}); // TODO: Add current order here [products, date, total]
   const [orderView, setOrderView] = useState({}); // TODO: Add order view here [products, date, total]
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isMenuMobileOpen, setIsMenuMobileOpen] = useState(false);
+  const [isAllActive, setIsAllActive] = useState(true);
+  const [isElectronicsActive, setIsElectronicsActive] = useState(false);
+  const [isJewelryActive, setIsJewelryActive] = useState(false);
+  const [isMensClothingActive, setIsMensClothingActive] = useState(false);
+  const [isWomensClothingActive, setIsWomensClothingActive] = useState(false);
+  const [isNavActive, setIsNavActive] = useState(true);
+  const [userAccount, setUserAccount] = useState({});
 
   useEffect(() => {
-    setProducts([]);
-    fetch('https://fakestoreapi.com/products')
-      .then(res=>res.json())
-      .then(json=> {
-        setProducts(json);
-        setFilteredProducts(json);
-      })
-      .catch(err=>console.error(err));
+    // Recuperar los datos de localStorage cuando la aplicación se monte
+    const storedUserData = JSON.parse(localStorage.getItem("currentUser"));
+    if (storedUserData !== null  || JSON.stringify(storedUserData) === "{}") {
+      console.log(storedUserData);
+      setUserAccount(storedUserData);
+    }
   }, []);
+
 
   const updateCurrentOrder = () => {
     if (cartProducts.length === 0) return;
@@ -85,13 +88,79 @@ const OnlineStoreProvider = ( { children }) => {
     toggleProductDetail();
   }
 
-  const updateUserInfo = ({ name, email, password }) => {
-    setUserInfo({
-      name,
-      email,
-      password,
-    });
+  const updateUserAccount = ({ name, email, password }) => {
+    const user = {name, email, password};
+    setUserAccount(user);
+    const newUsers = JSON.parse(localStorage.getItem("usersDb"));
+    newUsers.splice(newUsers.findIndex(user => user.email === email), 1, user);
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    localStorage.setItem("usersDb", JSON.stringify(newUsers));
   }
+
+  const closeAllMenus = () => {
+    setIsProfileMenuOpen(false);
+    setIsMenuMobileOpen(false);
+    setIsCartOpen(false);
+  };
+
+  const allNavInactive = () => {
+    setIsAllActive(false);
+    setIsElectronicsActive(false);
+    setIsJewelryActive(false);
+    setIsMensClothingActive(false);
+    setIsWomensClothingActive(false);
+    closeAllMenus();
+    setIsNavActive(false);
+  }
+
+  const onlyAllActive = () => {
+    setIsAllActive(true);
+    setIsElectronicsActive(false);
+    setIsJewelryActive(false);
+    setIsMensClothingActive(false);
+    setIsWomensClothingActive(false);
+    setIsNavActive(true);
+  }
+  const onlyElectronicsActive = () => {
+    setIsAllActive(false);
+    setIsElectronicsActive(true);
+    setIsJewelryActive(false);
+    setIsMensClothingActive(false);
+    setIsWomensClothingActive(false);
+    setIsNavActive(true);
+  }
+  const onlyJewelryActive = () => {
+    setIsAllActive(false);
+    setIsElectronicsActive(false);
+    setIsJewelryActive(true);
+    setIsMensClothingActive(false);
+    setIsWomensClothingActive(false);
+    setIsNavActive(true);
+  }
+  const onlyMensClothingActive = () => {
+    setIsAllActive(false);
+    setIsElectronicsActive(false);
+    setIsJewelryActive(false);
+    setIsMensClothingActive(true);
+    setIsWomensClothingActive(false);
+    setIsNavActive(true);
+  }
+  const onlyWomensClothingActive = () => {
+    setIsAllActive(false);
+    setIsElectronicsActive(false);
+    setIsJewelryActive(false);
+    setIsMensClothingActive(false);
+    setIsWomensClothingActive(true);
+    setIsNavActive(true);
+  }
+
+  const toggleProfileMenu = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
+
+  const toggleMenuMobile = () => {
+    setIsMenuMobileOpen(!isMenuMobileOpen);
+  };
 
   const addOrder = (order) => {
     if (order.length === 0) return;
@@ -109,8 +178,8 @@ const OnlineStoreProvider = ( { children }) => {
   return (
     <OnlineStoreContext.Provider value={
       {
-        userInfo,
-        setUserInfo,
+        userAccount,
+        setUserAccount,
         products,
         setProducts,
         cartProducts,
@@ -136,10 +205,30 @@ const OnlineStoreProvider = ( { children }) => {
         removeProductFromCart,
         addProductToCart,
         showProductDetail,
-        updateUserInfo,
+        updateUserAccount,
         addOrder,
         filteredProducts,
         setFilteredProducts,
+        isProfileMenuOpen,
+        setIsProfileMenuOpen,
+        isMenuMobileOpen,
+        setIsMenuMobileOpen,
+        toggleProfileMenu,
+        toggleMenuMobile,
+        closeAllMenus,
+        allNavInactive,
+        onlyAllActive,
+        onlyElectronicsActive,
+        onlyJewelryActive,
+        onlyMensClothingActive,
+        onlyWomensClothingActive,
+        isAllActive,
+        isElectronicsActive,
+        isJewelryActive,
+        isMensClothingActive,
+        isWomensClothingActive,
+        isNavActive,
+        setIsNavActive,
       }
     }>
       {children}

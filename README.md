@@ -24,6 +24,8 @@ An example of an E-commerce
 
 [X] Search products by name
 
+[X] Login Authentication
+
 ## Used technologies
 
 - React
@@ -35,8 +37,6 @@ An example of an E-commerce
 [ ] Handle payment order
 
 [ ] Handle password recovery
-
-[ ] Login Authentication
 
 Author: estoicodev <estoicodev@gmail.com>
 

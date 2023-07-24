@@ -10,7 +10,7 @@ function MyOrder() {
   const navigate = useNavigate();
   const { cartProducts, countCartProducts, addOrder } = useOnlineStore();
   const [totalCartPayment, setTotalCartPayment] = useState(0);
-  const [date] = useState(new Date());
+  const [date] = useState((new Date().toLocaleDateString()));
 
   useEffect(() => {
     const totalAmount = parseFloat(cartProducts.reduce((acc, product) => acc + product.price, 0));
@@ -36,7 +36,7 @@ function MyOrder() {
       </div>
       <div className="w-full min-h-max flex justify-between items-center py-4 px-4 mb-8 rounded-lg text-lg font-bold bg-[#f7f7f7] text-black decoration-0 general-info">
         <div className="flex flex-col justify-center general-info__left">
-          <span className="text-base md:text-lg">{date.toLocaleDateString()}</span>
+          <span className="text-base md:text-lg">{date}</span>
           <span className="text-gray-500 text-base font-medium info">{countCartProducts} articles</span>
         </div>
         <span className="text-[#232830] text-lg font-bold price">$ {formatNumberWithComma(totalCartPayment.toFixed(2))}</span>

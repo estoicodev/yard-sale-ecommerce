@@ -2,11 +2,16 @@ import { Link } from 'react-router-dom'
 import Icon from '../../components/Icon'
 import { formatNumberWithComma } from '../../utils/format'
 import { useOnlineStore } from '../../contexts'
+import { useEffect, useState } from 'react'
 
 function MyOrders() {
-  const { myOrders, updateOrderView } = useOnlineStore();
+  const { updateOrderView, userAccount } = useOnlineStore();
+  const [myOrders, setMyOrders] = useState([]);
 
-  console.log("My orders: ",myOrders);
+  useEffect(() => {
+    const orders = userAccount.orders;
+    setMyOrders(orders);
+  }, [userAccount]);
 
   return (
     <section className="w-full max-w-md mx-auto pt-10 main-container">
@@ -16,7 +21,7 @@ function MyOrders() {
         </Link>
         <h1 className="font-semibold text-lg md:text-xl text-start ml-4">My orders</h1>
       </div>
-      {myOrders.length > 0 ? myOrders.map((order, idx) => (
+      {myOrders?.length > 0 ? myOrders.map((order, idx) => (
         <Link
           key={idx}
           to="/my-order-view"
@@ -24,7 +29,7 @@ function MyOrders() {
           onClick={() => {updateOrderView(order.id)}}
         >
           <div className="flex flex-col justify-center general-info__left">
-            <span className="text-base md:text-lg date">{order.date.toLocaleDateString()}</span>
+            <span className="text-base md:text-lg date">{order.date}</span>
             <span className="text-gray-500 text-base font-medium info">{order.products.length} articles</span>
           </div>
           <div className="flex general-info__right">

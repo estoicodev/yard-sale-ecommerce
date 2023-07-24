@@ -27,18 +27,27 @@ function SignUp() {
       name,
       email,
       password,
+      orders: [],
     });
     const newUser = {
       name,
       email,
       password,
+      orders: [],
     };
-    const currentUsers = JSON.parse(localStorage.getItem("usersDb"));
+    const users = JSON.parse(localStorage.getItem("usersDb"));
+    if (users !== null) {
+      if (users.some(user => user.email === email)) {
+        console.error("User already exists");
+        return;
+      }
+    }
+    
     let newUsers = [];
-    currentUsers === null ?
+    users === null ?
       newUsers = [newUser]
       :
-      newUsers = [...currentUsers, newUser];
+      newUsers = [...users, newUser];
 
     console.log("New users: ", newUsers);
     localStorage.setItem("currentUser", JSON.stringify(newUser));

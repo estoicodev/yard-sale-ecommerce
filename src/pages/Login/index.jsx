@@ -6,35 +6,39 @@ import HeaderAuth from '../../components/HeaderAuth'
 
 function Login() {
   const navigate = useNavigate();
-  const { setUserAccount, userAccount } = useOnlineStore();
+  const { setUserAccount } = useOnlineStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const { email, password} = Object.fromEntries(formData);
-    const users = JSON.parse(localStorage.getItem("usersDb"));
+    const users = localStorage.getItem("usersDb");
 
     if (users === null) {
       console.error("No users found. Create a new one.");
       return;
     }
 
-    const userCredentials = users.find(user => user.email === email);
-    if (!userCredentials) {
+    console.log("Users:", users)
+
+    const usersParsed = JSON.parse(users);
+
+    const userInfo = usersParsed.find(user => user.email === email);
+    console.log("User info:", userInfo);
+
+    if (!userInfo) {
       console.error("User not found");
       return;
     }
-    if (password !== userCredentials.password) {
+    if (password !== userInfo.password) {
       console.error("Invalid password");
       return;
     }
 
-    setUserAccount({
-      name: userCredentials.name,
-      email: userCredentials.email,
-      password: userCredentials.password,
-    });
-    localStorage.setItem("currentUser", JSON.stringify(userAccount));
+    const userInfoTmp = { ...userInfo };
+
+    setUserAccount(userInfoTmp);
+    localStorage.setItem("currentUser", JSON.stringify(userInfoTmp));
     localStorage.setItem("authenticated", "auth");
     navigate("/");
     console.log("Correct credentials!");

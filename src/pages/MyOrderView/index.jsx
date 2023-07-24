@@ -17,13 +17,13 @@ function MyOrderView() {
       </div>
       <Link to="/my-orders" className="w-full min-h-max flex justify-between items-center py-4 px-4 mb-8 rounded-lg text-lg font-bold bg-[#f7f7f7] text-black decoration-0 general-info">
         <div className="flex flex-col justify-center general-info__left">
-          <span className="text-base md:text-lg">{orderView.date.toLocaleDateString()}</span>
-          <span className="text-gray-500 text-base font-medium info">{orderView.products.length} articles</span>
+          <span className="text-base md:text-lg">{orderView.date}</span>
+          <span className="text-gray-500 text-base font-medium info">{orderView?.products?.length} articles</span>
         </div>
-        <span className="text-[#232830] text-lg font-bold price">$ {formatNumberWithComma(orderView.total.toFixed(2))}</span>
+        <span className="text-[#232830] text-lg font-bold price">$ {formatNumberWithComma(orderView?.total?.toFixed(2))}</span>
       </Link>
       <section className="w-full pl-2 pr-4 orders-container">
-        {orderView.products.map((product, idx) => (
+        {orderView?.products?.map((product, idx) => (
           <CardPayment
             key={idx}
             title={product.title}

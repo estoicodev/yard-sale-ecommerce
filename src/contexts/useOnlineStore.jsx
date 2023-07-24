@@ -11,7 +11,6 @@ const OnlineStoreProvider = ( { children }) => {
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [productDetail, setProductDetail] = useState({});// TODO: Add product object here
-  const [myOrders, setMyOrders] = useState([]); // TODO: Add my orders here [products, date, total]
   const [currentOrder, setCurrentOrder] = useState({}); // TODO: Add current order here [products, date, total]
   const [orderView, setOrderView] = useState({}); // TODO: Add order view here [products, date, total]
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -30,7 +29,9 @@ const OnlineStoreProvider = ( { children }) => {
     if (storedUserData !== null  || JSON.stringify(storedUserData) === "{}") {
       console.log(storedUserData);
       setUserAccount(storedUserData);
+      console.log("User account: ", storedUserData);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -51,8 +52,16 @@ const OnlineStoreProvider = ( { children }) => {
     });
   }
 
+  // const getOrdersFromLocalStorage = () => {
+  //   const users = JSON.parse(localStorage.getItem("usersDb"));
+  //   const user = users.find(user => user.email === userAccount.email);
+  //   const tmpUser = { ...user };
+  //   const { orders } = tmpUser;
+  //   return orders;
+  // }
+
   const updateOrderView = (orderId) => {
-    const order = myOrders.find(order => order.id === orderId);
+    const order = userAccount.orders.find(order => order.id === orderId);
     setOrderView(order);
   }
 
@@ -89,7 +98,12 @@ const OnlineStoreProvider = ( { children }) => {
   }
 
   const updateUserAccount = ({ name, email, password }) => {
-    const user = {name, email, password};
+    const user = {
+      name,
+      email,
+      password,
+      orders: userAccount.orders,
+    };
     setUserAccount(user);
     const newUsers = JSON.parse(localStorage.getItem("usersDb"));
     newUsers.splice(newUsers.findIndex(user => user.email === email), 1, user);
@@ -170,9 +184,34 @@ const OnlineStoreProvider = ( { children }) => {
     if (!order.id) return;
 
     console.log("Add order: ", order);
-    setMyOrders([...myOrders, order]);
     setCartProducts([]);
     setCountCartProducts(0);
+    // const { orders } = userAccount;
+    const users = JSON.parse(localStorage.getItem("usersDb"));
+    const usersWithoutCurrent = users.filter(user => user.email !== userAccount.email);
+    const currentOrders = users.find(user => user.email === userAccount.email).orders;
+
+    let newOrders = [];
+    if (currentOrders.length === 0) {
+      newOrders = [order];
+    } else {
+      newOrders = [...currentOrders, order];
+    }
+    
+    // eslint-disable-next-line no-unused-vars
+    const { orders, ...userWithoutOrders } = userAccount;
+    const newUserAccount = { ...userWithoutOrders, orders: newOrders };
+
+    console.log("New User Account: ", newUserAccount);
+
+    setUserAccount(newUserAccount);
+
+    localStorage.setItem("currentUser", JSON.stringify(newUserAccount));
+    localStorage.setItem("usersDb", JSON.stringify([
+      ...usersWithoutCurrent,
+      newUserAccount,
+    ]));
+    console.log("New Orders: ", newOrders);
   }
 
   return (
@@ -192,8 +231,6 @@ const OnlineStoreProvider = ( { children }) => {
         setIsCartOpen,
         productDetail,
         setProductDetail,
-        myOrders,
-        setMyOrders,
         currentOrder,
         setCurrentOrder,
         orderView,

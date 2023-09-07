@@ -1,6 +1,6 @@
-# Yard Sale E-commerce with React
+# Yard Sale E-commerce
 
-An example of an E-commerce
+An example of an E-commerce with React
 
 ## Links
 

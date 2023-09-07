@@ -1,11 +1,12 @@
 import CardsList from "../../components/CardsList"
 import Card from "../../components/Card"
 import Searcher from "../../components/Searcher";
+import Loading from "../../components/Loading";
 import { useOnlineStore } from "../../contexts";
 import { useEffect } from "react";
 
 function Electronics() {
-  const { filteredProducts, addProductToCart, showProductDetail, onlyElectronicsActive } = useOnlineStore();
+  const { filteredProducts, addProductToCart, showProductDetail, onlyElectronicsActive, loadingProducts } = useOnlineStore();
 
   useEffect(() => {
     onlyElectronicsActive();
@@ -15,8 +16,9 @@ function Electronics() {
   return (
     <>
       <Searcher />
+      {loadingProducts && <Loading />}
       <CardsList>
-        {filteredProducts.filter((product) => product.category === "electronics").map((product) => (
+        {filteredProducts.length > 0 && filteredProducts.filter((product) => product.category === "electronics").map((product) => (
           <Card
             key={product.id}
             imageSrc={product.image}

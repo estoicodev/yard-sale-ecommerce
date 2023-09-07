@@ -22,6 +22,7 @@ const OnlineStoreProvider = ( { children }) => {
   const [isWomensClothingActive, setIsWomensClothingActive] = useState(false);
   const [isNavActive, setIsNavActive] = useState(true);
   const [userAccount, setUserAccount] = useState({});
+  const [loadingProducts, setLoadingProducts] = useState(true); // TODO: Add loading products here [products, date, total
 
   useEffect(() => {
     // Recuperar los datos de localStorage cuando la aplicación se monte
@@ -184,8 +185,6 @@ const OnlineStoreProvider = ( { children }) => {
     if (!order.id) return;
 
     console.log("Add order: ", order);
-    setCartProducts([]);
-    setCountCartProducts(0);
     // const { orders } = userAccount;
     const users = JSON.parse(localStorage.getItem("usersDb"));
     const usersWithoutCurrent = users.filter(user => user.email !== userAccount.email);
@@ -211,7 +210,9 @@ const OnlineStoreProvider = ( { children }) => {
       ...usersWithoutCurrent,
       newUserAccount,
     ]));
-    console.log("New Orders: ", newOrders);
+
+    setCartProducts([]);
+    setCountCartProducts(0);
   }
 
   return (
@@ -266,6 +267,8 @@ const OnlineStoreProvider = ( { children }) => {
         isWomensClothingActive,
         isNavActive,
         setIsNavActive,
+        loadingProducts,
+        setLoadingProducts
       }
     }>
       {children}

@@ -2,6 +2,10 @@
 
 An example of an E-commerce
 
+## Links
+
+[Demo](https://yard-sale-ecommerce.netlify.app/)
+
 ## Features
 
 [X] Fetch each category from FakeStore API
@@ -39,5 +43,3 @@ An example of an E-commerce
 [ ] Handle password recovery
 
 Author: estoicodev <estoicodev@gmail.com>
-
-[Demo](https://yard-sale-ecommerce.netlify.app/)

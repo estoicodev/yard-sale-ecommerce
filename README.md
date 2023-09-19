@@ -1,45 +1,41 @@
 # Yard Sale E-commerce
 
-An example of an E-commerce with React
+Un E-commerce con React obteniendo datos de API FakeStore
 
 ## Links
 
-[Demo](https://yard-sale-ecommerce.netlify.app/)
+- [Demo](https://yard-sale-ecommerce.netlify.app/)
 
-## Features
+## Características
 
-[X] Fetch each category from FakeStore API
+[X] Obtener cada categoría de la API FakeStore
 
-[X] Add products to Shopping Cart
+[X] Agregar productos al carrito de compras
 
-[X] Get product detail aside from each product
+[X] Obtener detalles del producto aparte de cada producto
 
-[X] Save order to continue buying new products
+[X] Guardar pedido para seguir comprando nuevos productos
 
-[X] Save all the orders
+[X] Guardar todos los pedidos
 
-[X] See my account information
+[X] Ver la información de mi cuenta
 
-[X] Can edit my account information
+[X] Puedo editar la información de mi cuenta
 
-[X] Login and Sign-up pages
+[X] Páginas de inicio de sesión y registro
 
-[X] Responsive Menu and Main from each page
+[X] Menú responsivo y principal de cada página
 
-[X] Search products by name
+[X] Buscar productos por nombre
 
-[X] Login Authentication
+[X] Autenticación de inicio de sesión
 
-## Used technologies
+## Tecnologías
 
 - React
 - React Router
 - Tailwind CSS
 
-## Possible features to add
+## Autor
 
-[ ] Handle payment order
-
-[ ] Handle password recovery
-
-Author: estoicodev <estoicodev@gmail.com>
+estoicodev <estoicodev@gmail.com>
